@@ -20,7 +20,8 @@ class Handler(webapp2.RequestHandler):
 		self.write(self.render_str(template, **kw))
 
 class MainPage(Handler):
-	def post(self):
-		self.render("welcome!")
+	def get(self):
+		self.response.out.write("welcome!!")
+		#self.render("welcome!")
 
 app = webapp2.WSGIApplication([('/', MainPage)], debug=True)
