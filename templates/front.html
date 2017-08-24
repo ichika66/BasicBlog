@@ -5,7 +5,15 @@
 	</head>
 	<body>
 		<h1>Basic Blog</h1>
-		
+		<form method="post">
+		{% for blog in blogs %}
+			<div class="blog">
+				<div class="blog-title">{{blog.title}}</div>
+				<pre class="blog-body">{{blog.blog}}</pre>
+			</div>
+		{% endfor %}
+
+		</form>
 
 	</body>
 </html>

@@ -21,36 +21,39 @@ class Handler(webapp2.RequestHandler):
 
 class BlogPost(db.Model):
 	title = db.StringProperty(required = True)
-	post = db.TextProperty(required = True)
+	blog = db.TextProperty(required = True)
 	created = db.DateTimeProperty(auto_now_add = True)	
 
 class MainPage(Handler):
-	def render_front(self, title="", post=""):
-		self.render("front.html", title= title, post=post)
+	def render_front(self, title="", blog=""):
+		blogs = db.GqlQuery("SELECT * FROM BlogPost "
+							"ORDER BY created DESC")
+
+		self.render("front.html", title= title, blog=blog)
 
 	def get(self):
 		self.render_front()
 
 class NewPost(Handler):
-	def render_newpost(self, title="", post="", error=""):
-		self.render("newpost.html", title=title, post=post, error=error)
+	def render_newpost(self, title="", blog="", error=""):
+		self.render("newpost.html", title=title, blog=blog, error=error)
 
 	def get(self):
 		self.render_newpost()
 
 	def post(self):
 		title = self.request.get("title")
-		post = self.request.get("post")
+		blog = self.request.get("blog")
 
-		if title and post:
-			a = BlogPost(title = title, post = post)
+		if title and blog:
+			a = BlogPost(title = title, blog = blog)
 			a.put()
 
-			self.redirect("/newpost")
+			self.redirect("/")
 
 		else:
 			error = "we need both a title and some posts!"
-			self.render_newpost(title, post, error)
+			self.render_newpost(title, blog, error)
 
 
 app = webapp2.WSGIApplication([('/', MainPage),
