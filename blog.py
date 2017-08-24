@@ -25,8 +25,11 @@ class BlogPost(db.Model):
 	created = db.DateTimeProperty(auto_now_add = True)	
 
 class MainPage(Handler):
+	def render_front(self, title="", post=""):
+		self.render("front.html", title= title, post=post)
+
 	def get(self):
-		self.render("front.html")
+		self.render_front()
 
 class NewPost(Handler):
 	def render_newpost(self, title="", post="", error=""):
@@ -36,14 +39,19 @@ class NewPost(Handler):
 		self.render_newpost()
 
 	def post(self):
-		title = self.requset.get("title")
-		post = self.requset.get("post")
+		title = self.request.get("title")
+		post = self.request.get("post")
 
 		if title and post:
-			self.response.out.write("Thanks!")
+			a = BlogPost(title = title, post = post)
+			a.put()
+
+			self.redirect("/newpost")
+
 		else:
 			error = "we need both a title and some posts!"
 			self.render_newpost(title, post, error)
+
 
 app = webapp2.WSGIApplication([('/', MainPage),
 								('/newpost', NewPost)], debug=True)
