@@ -21,7 +21,6 @@ class Handler(webapp2.RequestHandler):
 
 class MainPage(Handler):
 	def get(self):
-		self.response.out.write("welcome!!")
-		#self.render("welcome!")
+		self.render("front.html")
 
 app = webapp2.WSGIApplication([('/', MainPage)], debug=True)
