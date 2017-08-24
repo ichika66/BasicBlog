@@ -23,4 +23,22 @@ class MainPage(Handler):
 	def get(self):
 		self.render("front.html")
 
-app = webapp2.WSGIApplication([('/', MainPage)], debug=True)
+class NewPost(Handler):
+	def render_newpost(self, title="", post="", error=""):
+		self.render("newpost.html", title=title, post=post, error=error)
+
+	def get(self):
+		self.render_newpost()
+
+	def post(self):
+		title = self.requset.get("title")
+		post = self.requset.get("post")
+
+		if title and post:
+			self.response.out.write("Thanks!")
+		else:
+			error = "we need both a title and some posts!"
+			self.render_newpost(title, post, error)
+
+app = webapp2.WSGIApplication([('/', MainPage),
+								('/newpost', NewPost)], debug=True)
