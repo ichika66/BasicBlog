@@ -25,39 +25,28 @@ class BlogPost(db.Model):
 	created = db.DateTimeProperty(auto_now_add = True)	
 
 class MainPage(Handler):
-	def render_front(self):
+	def render_front(self, title="", blog="", error=""):
 		blogs = db.GqlQuery("SELECT * FROM BlogPost "
 							"ORDER BY created DESC")
 
-		self.render("front.html", blogs=blogs)
+
+		self.render("front.html", title=title, blog=blog, error=error, blogs=blogs)
 
 	def get(self):
 		self.render_front()
 
-class NewPost(Handler):
-	def render_newpost(self, title="", blog="", error=""):
-		blogs = db.GqlQuery("SELECT * FROM BlogPost "
-							"ORDER BY created DESC")
-
-		self.render("newpost.html", title=title, blog=blog, error=error, blogs=blogs)
-
-	def get(self):
-		self.render_newpost()
-
 	def post(self):
 		title = self.request.get("title")
-		blog = self.request.get("blog")
+		art = self.request.get("blog")
 
-		if title and blog:
+		if title and art:
 			a = BlogPost(title = title, blog = blog)
 			a.put()
 
-			self.redirect("/newpost")
+			self.redirect("/")
 
 		else:
-			error = "we need both a title and some posts!"
-			self.render_newpost(title, blog, error)
+			error = "we need both a title and some artwork!"
+			self.render_front(title, blog, error)
 
-
-app = webapp2.WSGIApplication([('/', MainPage),
-								('/newpost', NewPost)], debug=True)
+app = webapp2.WSGIApplication([('/', MainPage)], debug=True)

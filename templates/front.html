@@ -6,10 +6,10 @@
 	<body>
 		<h1>Basic Blog</h1>
 		<form method="post">
-		{% for blog in blogs %}
+		{% for b in blogs %}
 			<div class="blog">
-				<div class="blog-title">{{blog.title}}</div>
-				<div class="blog-body">{{blog.blog}}</div>
+				<div class="blog-title">{{b.title}}</div>
+				<div class="blog-body">{{b.blog}}</div>
 			</div>
 		{% endfor %}
 
