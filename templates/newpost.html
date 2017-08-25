@@ -58,6 +58,7 @@
 	</style>
 	<body>
 		<h1>New Blog Post</h1>
+
 		<form method="post">
 			<label>
 				<div>title</div>
@@ -74,5 +75,15 @@
 			<input type="submit">
 
 		</form>
+
+		<hr>
+
+		{% for blog in blogs %}
+			<div class="blog">
+				<div class="blog-title">{{blog.title}}</div>
+				<div class="blog-body">{{blog.blog}}</div>
+			</div>
+		{% endfor %}
+
 	</body>
 </html>
