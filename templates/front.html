@@ -3,8 +3,8 @@
 {% block content %}
 
 	{% for art in arts %}
-		{{art.title}}
-		{{art.art}}
+		<dir class="art-title">{{art.title}}</dir>
+		<div class="art-body">{{art.art}}</div>
 		<br><br>
 	{% endfor %}
 
