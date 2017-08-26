@@ -49,4 +49,31 @@ class MainPage(Handler):
 			error = "we need both a title and some artwork!"
 			self.render_front(title, art, error)
 
-app = webapp2.WSGIApplication([('/', MainPage)], debug=True)
+class NewPost(Handler):
+	def render_newpost(self, title="", art="", error=""):
+		arts = db.GqlQuery("SELECT * FROM Blog "
+							"ORDER BY created DESC")
+
+		self.render("newpost.html", title=title, art=art, error=error, arts=arts)
+
+	def get(self):
+		self.render_newpost()
+
+	def post(self):
+		title = self.request.get("title")
+		art = self.request.get("art")
+
+		if title and art:
+			a = Blog(title = title, art = art)
+			a.put()
+
+			self.redirect("/")
+
+		else:
+			error = "we need both parameteres!"
+			self.render_newpost(title, art, error)
+
+		
+
+app = webapp2.WSGIApplication([('/', MainPage),
+								('/newpost' NewPost)], debug=True)
