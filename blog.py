@@ -26,7 +26,7 @@ class Art(db.Model):
 
 class MainPage(Handler):
 	def render_front(self, title="", art="", error=""):
-		arts = db.GqlQuery("SELECT * FROM art "
+		arts = db.GqlQuery("SELECT * FROM Art "
 							"ORDER BY created DESC")
 
 
@@ -46,7 +46,7 @@ class MainPage(Handler):
 			self.redirect("/")
 
 		else:
-			error = "we need both a title and some blogwork!"
+			error = "we need both a title and some artwork!"
 			self.render_front(title, art, error)
 
 app = webapp2.WSGIApplication([('/', MainPage)], debug=True)
