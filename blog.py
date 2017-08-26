@@ -51,10 +51,10 @@ class MainPage(Handler):
 
 class NewPost(Handler):
 	def render_newpost(self, title="", art="", error=""):
-		arts = db.GqlQuery("SELECT * FROM Blog "
-							"ORDER BY created DESC")
+		# arts = db.GqlQuery("SELECT * FROM Blog "
+		# 					"ORDER BY created DESC")
 
-		self.render("newpost.html", title=title, art=art, error=error, arts=arts)
+		self.render("newpost.html", title=title, art=art, error=error)
 
 	def get(self):
 		self.render_newpost()
