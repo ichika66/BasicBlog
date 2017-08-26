@@ -33,6 +33,16 @@ input[type=submit] {
 	font-size: 24px
 }
 
+.main-title {
+    display: block;
+    color: #222;
+    font-size: 40px;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 30px;
+    text-decoration: none;
+}
+
 .art + .art {
 	margin-top: 20px;
 }
