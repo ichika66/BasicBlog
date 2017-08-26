@@ -29,15 +29,16 @@ class Blog(db.Model):
 	created = db.DateTimeProperty(auto_now_add = True)	
 
 class MainPage(Handler):
-	def render_front(self, title="", art=""):
-		arts = db.GqlQuery("SELECT * FROM Blog "
-							"ORDER BY created DESC")
+	#def render_front(self, title="", art=""):
+	#	arts = db.GqlQuery("SELECT * FROM Blog ORDER BY created DESC")
+	#	self.render("front.html", title=title, art=art, arts=arts)
 
-
-		self.render("front.html", title=title, art=art, arts=arts)
+	#def get(self):
+	#	self.render_front()
 
 	def get(self):
-		self.render_front()
+		arts = db.GqlQuery("SELECT * FROM Blog ORDER BY created DESC")
+		self.render('front.html', arts = arts)
 
 	# def post(self):
 	# 	title = self.request.get("title")
@@ -71,7 +72,7 @@ class NewPost(Handler):
 			a = Blog(title = title, art = art)
 			a.put()
 
-			self.redirect("/(\d+)")
+			self.redirect("/")
 
 		else:
 			error = "we need both parameteres!"
@@ -84,8 +85,8 @@ class Confirm(webapp2.RequestHandler):
 
 #		self.render("confirm.html", title = title, art = art)
 
-	def get(self)
-		arts = Att()
+	def get(self):
+		arts = Art()
 		arts.sent = self.request.get('')
 #		self.render_confirm()
 
