@@ -66,8 +66,8 @@
 			</label>
 
 			<label>
-				<div>blog</div>
-				<textarea name="blog">{{blog}}</textarea>
+				<div>art</div>
+				<textarea name="art">{{art}}</textarea>
 			</label>
 
 			<div class="error">{{error}}</div>
@@ -75,15 +75,6 @@
 			<input type="submit">
 
 		</form>
-
-		<hr>
-
-		{% for blog in blogs %}
-			<div class="blog">
-				<div class="blog-title">{{blog.title}}</div>
-				<div class="blog-body">{{blog.blog}}</div>
-			</div>
-		{% endfor %}
 
 	</body>
 </html>
