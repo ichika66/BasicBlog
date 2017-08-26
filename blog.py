@@ -25,12 +25,12 @@ class Blog(db.Model):
 	created = db.DateTimeProperty(auto_now_add = True)	
 
 class MainPage(Handler):
-	def render_front(self, title="", art="", error=""):
+	def render_front(self, title="", art=""):
 		arts = db.GqlQuery("SELECT * FROM Blog "
 							"ORDER BY created DESC")
 
 
-		self.render("front.html", title=title, art=art, error=error, arts=arts)
+		self.render("front.html", title=title, art=art, arts=arts)
 
 	def get(self):
 		self.render_front()
