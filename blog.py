@@ -67,13 +67,23 @@ class NewPost(Handler):
 			a = Blog(title = title, art = art)
 			a.put()
 
-			self.redirect("/")
+			self.redirect("/obj.key().id()")
 
 		else:
 			error = "we need both parameteres!"
 			self.render_newpost(title, art, error)
 
-		
+class Confirm(Handler):
+	def render_confirm(self, title="", art=""):
+		arts = db.GqlQuery("SELECT * FROM Blog "
+							"WHERE id == bj.key().id()")
+
+		self.render("confirm.html", title = title, art = art)
+
+	def get(self):
+		self.render_confirm()
+
 
 app = webapp2.WSGIApplication([('/', MainPage),
-								('/newpost', NewPost)], debug=True)
+								('/newpost', NewPost),
+								('/obj.key().id()', Confirm)], debug=True)
