@@ -35,19 +35,19 @@ class MainPage(Handler):
 	def get(self):
 		self.render_front()
 
-	def post(self):
-		title = self.request.get("title")
-		art = self.request.get("art")
+	# def post(self):
+	# 	title = self.request.get("title")
+	# 	art = self.request.get("art")
 
-		if title and art:
-			a = Blog(title = title, art = art)
-			a.put()
+	# 	if title and art:
+	# 		a = Blog(title = title, art = art)
+	# 		a.put()
 
-			self.redirect("/")
+	# 		self.redirect("/")
 
-		else:
-			error = "we need both a title and some artwork!"
-			self.render_front(title, art, error)
+	# 	else:
+	# 		error = "we need both a title and some artwork!"
+	# 		self.render_front(title, art, error)
 
 class NewPost(Handler):
 	def render_newpost(self, title="", art="", error=""):
@@ -76,4 +76,4 @@ class NewPost(Handler):
 		
 
 app = webapp2.WSGIApplication([('/', MainPage),
-								('/newpost' NewPost)], debug=True)
+								('/newpost', NewPost)], debug=True)
