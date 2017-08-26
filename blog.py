@@ -19,14 +19,14 @@ class Handler(webapp2.RequestHandler):
 	def render(self, template, **kw):
 		self.write(self.render_str(template, **kw))
 
-class Art(db.Model):
+class Blog(db.Model):
 	title = db.StringProperty(required = True)
 	art = db.TextProperty(required = True)
 	created = db.DateTimeProperty(auto_now_add = True)	
 
 class MainPage(Handler):
 	def render_front(self, title="", art="", error=""):
-		arts = db.GqlQuery("SELECT * FROM Art "
+		arts = db.GqlQuery("SELECT * FROM Blog "
 							"ORDER BY created DESC")
 
 
@@ -40,7 +40,7 @@ class MainPage(Handler):
 		art = self.request.get("art")
 
 		if title and art:
-			a = Art(title = title, art = art)
+			a = Blog(title = title, art = art)
 			a.put()
 
 			self.redirect("/")
